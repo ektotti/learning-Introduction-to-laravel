@@ -1,22 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body{font-size:16pt; color:#999;}
-        h1{font-size:100pt; text-align:right; color:#eee; margin:-40px 0px -50px 0px;}
-    </style>
-</head>
-<body>
-    <h1>Blade/Index</h1>
-    @foreach($fruits as $fruit)
-    @if($loop->iteration == 2)
-        @continue
-    @endif
-    <div>No,{{$loop->iteration}}:{{$fruit}}</div>
-    @endforeach
-</body>
-</html>
+    @extends('layouts.helloapp')
+
+    @section('title','Index')
+
+    @section('menubar')
+        @parent
+        インデックスページ
+    @endsection
+
+    @section('content')
+        <p>ここが本文のコンテンツです。</p>
+        {{--@component('components.message')
+            @slot('msg_title')
+                CAUTION!
+            @endslot
+
+             @slot('msg_content')
+                これはコンポーネントメッセージです。
+            @endslot 
+        @endcomponent--}}
+
+        {{--@include('components.message', ['msg_title'=>'CAUTION!','msg_content'=>'これはコンポーネントメッセージです。'])--}}
+
+        <ul>
+            @each('components.items', $data, 'item')
+        </ul>
+
+    @endsection
+   
+    @section('footer')
+        copyright 2020 tuyano
+    @endsection
