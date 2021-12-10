@@ -20,10 +20,12 @@
         @endcomponent--}}
 
         {{--@include('components.message', ['msg_title'=>'CAUTION!','msg_content'=>'これはコンポーネントメッセージです。'])--}}
-
+ 
         <ul>
-            @each('components.items', $data, 'item')
+        @each('components.items', $data, 'item')
         </ul>
+        
+        {{$compose_msg}}
 
     @endsection
    
