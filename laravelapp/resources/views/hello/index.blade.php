@@ -9,23 +9,43 @@
 
     @section('content')
         <p>ここが本文のコンテンツです。</p>
-        {{--@component('components.message')
-            @slot('msg_title')
-                CAUTION!
-            @endslot
-
-             @slot('msg_content')
-                これはコンポーネントメッセージです。
-            @endslot 
-        @endcomponent--}}
-
-        {{--@include('components.message', ['msg_title'=>'CAUTION!','msg_content'=>'これはコンポーネントメッセージです。'])--}}
- 
-        <ul>
-        @each('components.items', $data, 'item')
-        </ul>
+        {{--<table>
+            @foreach($data as $item)
+            <tr><th>{{$item['name']}}</th><td>{{$item['mail']}}</td></tr>
+            @endforeach
+        </table>--}}
         
-        {{$compose_msg}}
+        {{--<p>これは,<middleware>google.com</middleware>へのリンクです</p>
+            <p>これは,<middleware>yahoo.co.jp</middleware>へのリンクです</p>--}}
+        
+            @if (count($errors) > 0) 
+                <p>入力に問題があります。再入力して下さい</p>
+            @endif
+
+        <p>{{$msg}}</p>
+        <form action="/hello" method="POST">
+        @csrf
+             {{-- @if ($errors->has('name')) 
+                <p>{{$errors->first('name')}}</p>
+            @endif --}}
+
+            @error('name')
+                <p>{{$message}}</p> 
+            @enderror
+                <tr><th>name: </th><td><input type="text" name="name" value="{{old('name')}}"></td></tr>
+
+            @if ($errors->has('mail')) 
+                <p>{{$errors->first('mail')}}</p>
+            @endif
+            <tr><th>mail:</th><td><input type="text" name="mail" value="{{old('mail')}}"></td></tr>
+            
+            @if ($errors->has('age')) 
+                <p>{{$errors->first('age')}}</p>
+            @endif
+            <tr><th>age:</th><td><input type="text" name="age" value="{{old('age')}}"></td></tr>
+            
+            <input type="submit" value="send">
+        </form>
 
     @endsection
    
