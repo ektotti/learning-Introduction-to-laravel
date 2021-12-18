@@ -9,6 +9,7 @@
 
     @section('content')
         <p>ここが本文のコンテンツです。</p>
+        <?php phpinfo(); ?>
         {{--<table>
             @foreach($data as $item)
             <tr><th>{{$item['name']}}</th><td>{{$item['mail']}}</td></tr>
