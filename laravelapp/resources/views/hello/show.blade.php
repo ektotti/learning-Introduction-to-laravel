@@ -1,22 +1,23 @@
     @extends('layouts.helloapp')
 
-    @section('title','Index')
+    @section('title','show')
 
     @section('menubar')
         @parent
-        インデックスページ
+        詳細ページ
     @endsection
 
     @section('content')
         <p>ここが本文のコンテンツです。</p>
         
         <table>
-            <tr><th>Name</th><th>Email</th></tr>
+            <tr><th>Id</th><th>Name</th><th>Email</th><th>Pass</th></tr>
             @foreach($items as $item)
             <tr>
                 <td>{{$item->id}}</td>
                 <td>{{$item->name}}</td>
-                <td>{{$item->mail}}</td>
+                <td>{{$item->email}}</td>
+                <td>{{$item->password}}</td>
             </tr>
             @endforeach
         </table>

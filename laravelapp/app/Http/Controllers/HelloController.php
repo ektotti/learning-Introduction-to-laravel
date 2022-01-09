@@ -5,21 +5,23 @@ namespace App\Http\Controllers;
 use App\Http\Requests\HelloRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class HelloController extends Controller
 {
     public function index(Request $request){
-        $validator = Validator::make($request->all(), 
-        [
-            'id'=>'required',
-            'age'=>'numeric|between:0,150',
-        ]);
-        if($validator->fails()){
-            $msg = 'クエリ文に問題があります。';
-        }else{
-            $msg = '正しく入力されました。';
-        }
-        return view('hello.index', ['msg' => $msg, ] );
+        $items = DB::table('people2')
+            ->orderBy('id', 'desc')
+            ->get();
+        return view('hello.index', ['items' => $items, ]);
+    }
+
+    public function show(Request $request){
+        $min = $request->min;
+        $max = $request->max;
+        $items = DB::table('people2')
+        ->whereRaw('id > ? and id < ?' , [$min, $max])->get();
+        return view('hello.show', ['items' => $items, ]);
     }
 
     public function post(HelloRequest $request){
@@ -54,5 +56,42 @@ class HelloController extends Controller
         //                     ->withInput();
         // }
         return view('hello.index',['msg'=>'正しく入力されました！']);
+    }
+
+    public function add(){
+        return view('hello.add');
+    }
+
+    public function create(Request $request){
+
+        $params = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'picture' => $request->picture,
+        ];
+        DB::table('people2')->insert($params);
+        return redirect('/hello');
+    }
+
+    public function edit(Request $request){
+        $item = DB::table('people2')
+            ->where('id', $request->id)
+            ->first();
+        return view('hello.edit',['item'=>$item]);
+    }
+
+    public function update(Request $request){
+
+        $params = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'picture' => $request->picture,
+        ];
+        DB::table('people2')
+        ->where('id', $request->id)
+        ->update($params);
+        return redirect('/hello');
     }
 }
