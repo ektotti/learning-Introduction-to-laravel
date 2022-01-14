@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class HelloController extends Controller
 {
     public function index(Request $request){
-        $items = DB::table('people2')
+        $items = DB::table('people')
             ->orderBy('id', 'desc')
             ->get();
         return view('hello.index', ['items' => $items, ]);
@@ -19,7 +19,7 @@ class HelloController extends Controller
     public function show(Request $request){
         $min = $request->min;
         $max = $request->max;
-        $items = DB::table('people2')
+        $items = DB::table('people')
         ->whereRaw('id > ? and id < ?' , [$min, $max])->get();
         return view('hello.show', ['items' => $items, ]);
     }
@@ -70,12 +70,12 @@ class HelloController extends Controller
             'password' => $request->password,
             'picture' => $request->picture,
         ];
-        DB::table('people2')->insert($params);
+        DB::table('people')->insert($params);
         return redirect('/hello');
     }
 
     public function edit(Request $request){
-        $item = DB::table('people2')
+        $item = DB::table('people')
             ->where('id', $request->id)
             ->first();
         return view('hello.edit',['item'=>$item]);
@@ -89,7 +89,7 @@ class HelloController extends Controller
             'password' => $request->password,
             'picture' => $request->picture,
         ];
-        DB::table('people2')
+        DB::table('people')
         ->where('id', $request->id)
         ->update($params);
         return redirect('/hello');

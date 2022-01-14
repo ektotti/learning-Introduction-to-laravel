@@ -20,27 +20,27 @@ class PoepleTableSeeder extends Seeder
             "age" => '99',
         ];
 
-        DB::table('people2')->insert($param);
+        DB::table('people')->insert($param);
         $param = [
             "name" => 'norihiro',
             "mail" => 'totani@gmail.com',
             "age" => '29',
         ];
 
-        DB::table('people2')->insert($param);
+        DB::table('people')->insert($param);
         $param = [
             'name' => 'hukai',
             'mail' => 'hukai@gmail.com',
             'age' => '35',
         ];
 
-        DB::table('people2')->insert($param);
+        DB::table('people')->insert($param);
         $param = [
             'name' => 'kasuga',
             'mail' => 'kasuga@gmail.com',
             'age' => '42',
         ];
 
-        DB::table('people2')->insert($param);
+        DB::table('people')->insert($param);
     }
 }
