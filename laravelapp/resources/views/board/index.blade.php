@@ -1,23 +1,18 @@
 @extends('layouts.helloapp')
 
-@section('title', 'Person.index')
+@section('title', 'Board.index')
 
 @section('menubar')
     @parent
-    インデックスページ
+    ボード・スページ
 @endsection
 
 @section('content')
     <table>
-        <tr><th>Person</th><th>Board</th></tr>
+        <tr><th>Data</th></tr>
         @foreach ($items as $item)
             <tr>
                 <td>{{$item->getData()}} </td>
-                <td>
-                        @foreach ($item->boards as $board)
-                            {{$board->getData()}}
-                        @endforeach
-                </td>
             </tr>
         @endforeach
     </table>

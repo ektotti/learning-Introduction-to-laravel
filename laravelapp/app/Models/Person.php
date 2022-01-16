@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Scope\ScopePerson;
+// use App\Models\Board;
 
 class Person extends Model
 {
@@ -28,7 +29,7 @@ class Person extends Model
     }
 
     public function scopeAgeGreaterThan($query, $n){
-        return $query->where('age','>',$n);
+        return $query->where('age', '>', $n);
     }
 
     public function scopeAgeLessThan($query, $n){
@@ -40,6 +41,14 @@ class Person extends Model
 
         // static::addGlobalScope(new ScopePerson);
 
+    }
+
+    public function board(){
+        return $this->hasOne('App\Models\Board');
+    }
+    
+    public function boards(){
+        return $this->hasMany('App\Models\Board');
     }
 
 }

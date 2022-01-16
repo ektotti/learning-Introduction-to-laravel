@@ -3,6 +3,7 @@
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\PersonController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BoardController;
 use App\Http\Middleware\HelloMiddleware;
 
 /*
@@ -28,6 +29,7 @@ Route::post('hello/add', [HelloController::class, 'create']);
 Route::get('hello/show', [HelloController::class, 'show']);
 Route::get('hello/edit', [HelloController::class, 'edit']);
 Route::post('hello/edit', [HelloController::class, 'update']);
+
 Route::get('person', [PersonController::class, 'index']);
 Route::get('person/find', [PersonController::class, 'find']);
 Route::post('person/find', [PersonController::class, 'search']);
@@ -37,3 +39,7 @@ Route::get('person/edit', [PersonController::class, 'edit']);
 Route::post('person/edit', [PersonController::class, 'update']);
 Route::get('person/del', [PersonController::class, 'del']);
 Route::post('person/del', [PersonController::class, 'remove']);
+
+Route::get('board', [BoardController::class, 'index']);
+Route::get('board/add', [BoardController::class, 'add']);
+Route::post('board/add', [BoardController::class, 'create']);
