@@ -94,4 +94,8 @@ class HelloController extends Controller
         ->update($params);
         return redirect('/hello');
     }
+
+    public function rest(Request $request) {
+        return view('hello.rest');
+    }
 }
