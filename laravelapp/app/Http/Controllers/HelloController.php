@@ -6,14 +6,15 @@ use App\Http\Requests\HelloRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use App\Models\Person;
 
 class HelloController extends Controller
 {
     public function index(Request $request){
-        $items = DB::table('people')
-            ->orderBy('id', 'desc')
-            ->get();
-        return view('hello.index', ['items' => $items, ]);
+        $sort = isset($request->sort) ? $request->sort : 'id';
+        $items = Person::orderBy($sort, 'desc')
+            ->paginate(3);
+        return view('hello.index', ['items' => $items, 'sort' => $sort]);
     }
 
     public function show(Request $request){
@@ -98,4 +99,16 @@ class HelloController extends Controller
     public function rest(Request $request) {
         return view('hello.rest');
     }
+
+    public function ses_get(Request $request){
+        $session_data = $request->session()->get('msg');
+        return view('hello.session', ['session_data' => $session_data]);
+    }
+
+    public function ses_put(Request $request){
+        $msg = $request->input;
+        $request->session()->put('msg', $msg);
+        return redirect('/hello/session');
+    }
+
 }
