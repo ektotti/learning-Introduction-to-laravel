@@ -7,14 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Person;
+use Illuminate\Support\Facades\Auth;
 
 class HelloController extends Controller
 {
     public function index(Request $request){
+        $user = Auth::user();
         $sort = isset($request->sort) ? $request->sort : 'id';
         $items = Person::orderBy($sort, 'desc')
             ->paginate(3);
-        return view('hello.index', ['items' => $items, 'sort' => $sort]);
+        return view('hello.index', ['items' => $items, 'sort' => $sort, 'user' => $user]);
     }
 
     public function show(Request $request){
@@ -111,4 +113,23 @@ class HelloController extends Controller
         return redirect('/hello/session');
     }
 
+    public function getauth(Request $request)
+    {
+        $param = [
+            'message' => 'ログインして下さい'
+        ];
+        return view('hello.auth', $param);
+    }
+
+    public function postauth(Request $request)
+    {
+        $email = $request->email;
+        $password = $request->password;
+        if(Auth::attempt(['email'=>$email,'password'=>$password])){
+            $msg = 'ログインしました';
+        }else{
+            $msg = 'ログインに失敗しました';
+        }
+        return view('hello.auth', ['message' => $msg]);
+    }
 }

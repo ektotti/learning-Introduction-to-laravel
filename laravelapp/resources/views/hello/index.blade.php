@@ -8,8 +8,11 @@
     @endsection
 
     @section('content')
-        <p>ここが本文のコンテンツです。</p>
-        
+    @if(Auth::check())
+        <p>USER:{{$user->name . '(' . $user->email . ')'}} </p>
+        @else
+        <p>ログインしていません。（<a href="{{ route('login') }}">login</a> ）</p>
+    @endif
         <table>
             <tr><th><a href="/learning-Introduction-to-laravel/laravelapp/public/hello?sort=id">ID</a></th>
                 <th><a href="/learning-Introduction-to-laravel/laravelapp/public/hello?sort=name">NAME</a></th>
